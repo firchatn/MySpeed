@@ -39,9 +39,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         float x = event.values[0];
         float y = event.values[1];
         float z = event.values[2];
-        speed = (int) Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2));
+        speed = (int) Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2)) -9 ;
 
-        mes.setText("Speed : " + (speed-9));
+        mes.setText("Speed : " + speed);
     }
 
     @Override

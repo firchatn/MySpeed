@@ -12,8 +12,10 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener  {
     private TextView mes;
+    private TextView err;
     private Sensor mySensor;
     private SensorManager SM;
+    private String msg ="FIX the Mobile ";
 
 
     @Override
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         SM.registerListener(this, mySensor, SensorManager.SENSOR_DELAY_NORMAL);
 
         mes = (TextView)findViewById(R.id.affiche);
+        err = (TextView)findViewById(R.id.error);
 
 
 
@@ -40,6 +43,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         float y = event.values[1];
         float z = event.values[2];
         speed = (int) Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2)) -9 ;
+        if (speed < 0) {
+            err.setText(msg);
+        }
+        if (speed == 0) {
+            err.setText("");
+        }
 
         mes.setText("Speed : " + speed);
     }

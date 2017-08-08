@@ -35,13 +35,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        float speed= 0;
+        int speed= 0;
         float x = event.values[0];
         float y = event.values[1];
         float z = event.values[2];
-        
+        speed = (int) Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2));
 
-        mes.setText("x : " + speed);
+        mes.setText("Speed : " + (speed-9));
     }
 
     @Override

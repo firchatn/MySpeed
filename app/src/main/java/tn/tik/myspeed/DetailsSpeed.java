@@ -17,6 +17,6 @@ public class DetailsSpeed extends AppCompatActivity {
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         TextView textView = (TextView) findViewById(R.id.msg);
-        textView.setText(message);
+        textView.setText("MaxSpeed : " + message);
     }
 }

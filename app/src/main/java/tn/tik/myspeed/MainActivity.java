@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         mes = (TextView)findViewById(R.id.affiche);
         err = (TextView)findViewById(R.id.error);
-        //maxx = (TextView)findViewById(R.id.max);
-
 
     }
 
@@ -73,18 +71,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             editor.putInt("max", MaxSpeed);
             editor.commit();
             s = prefs.getInt("max", 0);
-            //maxx.setText("MaxSpeed : " + s + " KM/H");
+
         }
 
         s = prefs.getInt("max", 0);
-        //maxx.setText("MaxSpeed : " + s + " KM/H");
+
 
         mes.setText("Speed : " + speed + " KM/H");
     }
 
     public void details(View view){
         Intent intent = new Intent(this, DetailsSpeed.class);
-        intent.putExtra(EXTRA_MESSAGE, s);
+        String ss = Integer.toString(s);
+        intent.putExtra(EXTRA_MESSAGE, ss);
         startActivity(intent);
     }
 

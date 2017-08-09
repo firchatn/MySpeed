@@ -1,5 +1,8 @@
 package tn.tik.myspeed;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -13,9 +16,12 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements SensorEventListener  {
     private TextView mes;
     private TextView err;
+    private TextView maxx;
     private Sensor mySensor;
     private SensorManager SM;
     private String msg ="FIX the Mobile ";
+    private static int MaxSpeed = 0 ;
+
 
 
     @Override
@@ -30,6 +36,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         mes = (TextView)findViewById(R.id.affiche);
         err = (TextView)findViewById(R.id.error);
+        maxx = (TextView)findViewById(R.id.max);
+
+
+
+
 
 
 
@@ -42,6 +53,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         float x = event.values[0];
         float y = event.values[1];
         float z = event.values[2];
+
+        SharedPreferences prefs = this.getSharedPreferences(
+                "tn.tik.myspeed", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+      
+
         speed = (int) Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2)) -9 ;
         if (speed < 0) {
             err.setText(msg);
@@ -49,6 +66,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (speed == 0) {
             err.setText("");
         }
+        int s = prefs.getInt("max", 0);
+        if (speed > s){
+            MaxSpeed = speed;
+            editor.putInt("max", MaxSpeed);
+            editor.commit();
+            s = prefs.getInt("max", 0);
+            maxx.setText("MaxSpeed : " + s + " KM/H");
+        }
+
+        s = prefs.getInt("max", 0);
+        maxx.setText("MaxSpeed : " + s + " KM/H");
 
         mes.setText("Speed : " + speed + " KM/H");
     }

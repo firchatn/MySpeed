@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             err.setText("");
         }
 
-        mes.setText("Speed : " + speed);
+        mes.setText("Speed : " + speed + " KM/H");
     }
 
     @Override

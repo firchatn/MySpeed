@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         SharedPreferences prefs = this.getSharedPreferences(
                 "tn.tik.myspeed", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-      
+
 
         speed = (int) Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2)) -9 ;
         if (speed < 0) {

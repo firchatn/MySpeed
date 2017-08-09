@@ -1,6 +1,7 @@
 package tn.tik.myspeed;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorEvent;
+import android.view.View;
 import android.widget.TextView;
 
 
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private SensorManager SM;
     private String msg ="FIX the Mobile ";
     private static int MaxSpeed = 0 ;
+    int s;
+    public static final String EXTRA_MESSAGE = "SpeedMessage";
 
 
 
@@ -36,12 +40,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         mes = (TextView)findViewById(R.id.affiche);
         err = (TextView)findViewById(R.id.error);
-        maxx = (TextView)findViewById(R.id.max);
-
-
-
-
-
+        //maxx = (TextView)findViewById(R.id.max);
 
 
     }
@@ -54,8 +53,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         float y = event.values[1];
         float z = event.values[2];
 
+        /* create SharedPreferences to save max speed value */
         SharedPreferences prefs = this.getSharedPreferences(
                 "tn.tik.myspeed", Context.MODE_PRIVATE);
+
         SharedPreferences.Editor editor = prefs.edit();
 
 
@@ -66,19 +67,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (speed == 0) {
             err.setText("");
         }
-        int s = prefs.getInt("max", 0);
+         s = prefs.getInt("max", 0);
         if (speed > s){
             MaxSpeed = speed;
             editor.putInt("max", MaxSpeed);
             editor.commit();
             s = prefs.getInt("max", 0);
-            maxx.setText("MaxSpeed : " + s + " KM/H");
+            //maxx.setText("MaxSpeed : " + s + " KM/H");
         }
 
         s = prefs.getInt("max", 0);
-        maxx.setText("MaxSpeed : " + s + " KM/H");
+        //maxx.setText("MaxSpeed : " + s + " KM/H");
 
         mes.setText("Speed : " + speed + " KM/H");
+    }
+
+    public void details(View view){
+        Intent intent = new Intent(this, DetailsSpeed.class);
+        intent.putExtra(EXTRA_MESSAGE, s);
+        startActivity(intent);
     }
 
     @Override

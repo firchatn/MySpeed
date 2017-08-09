@@ -6,3 +6,16 @@ App work with some condition :
 - the movement must be linear
 - Mobile must stay constant
 
+
+## Open App
+
+![Image of MySite](img/screen1.png)
+
+
+## Mobile not Constant
+
+![Image of MySite](img/screen2.png)
+
+## Details MaxSpeed 
+
+![Image of MySite](img/screen3.png)
